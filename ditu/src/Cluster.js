@@ -8,16 +8,35 @@ import {
 class Cluster  extends React.Component{
 	constructor(props){
 		super(props);
+		this.state= {
+			focus: false,
+		}
+		this.events = {
+			onMouseEnter: this.mouseover,
+			onMouseLeave: this.mouseout,
+		}
+	}
+	handleMouse = (focus,e)=>{
+		this.setState({focus});
+		log(e);
+	}
+	mouseover = (e)=>{
+		this.handleMouse(true,e);
+	}
+	mouseout = (e)=>{
+		this.handleMouse(false,e);
 	}
 	render(){
 	const o = this.props.obj;
 	const map = this.props.map;
+	const events =this.events;
+	const focus = this.state.focus;
 	return(
-			<Marker position={o} title={o.title} map={map}>
-				<div onClick={function(){alert(1)}} className="marker-size" style={{
-						background:`url(${redImg})`, 
+			<Marker position={o} title={o.title} map={map} >
+				<div onClick={function(){alert(1)}}  {...events} className="cluster-size" style={{
+					background:`url(${focus?greenImg:redImg})`, 
 				}}>
-						<div className="marker-size" style={{
+						<div className="cluster-size" style={{
 						position:'absolute',
 						marginTop: '8px',
 						display:'block',

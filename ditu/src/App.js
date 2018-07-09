@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Map, Marker} from 'react-bmap';
+import {Map} from 'react-bmap';
 import Cluster from './Cluster';
 import House from './House';
 import './App.css';
