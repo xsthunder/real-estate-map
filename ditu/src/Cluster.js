@@ -19,8 +19,8 @@ class Cluster  extends React.Component{
 				}}>
 						<div className="marker-size" style={{
 						position:'absolute',
-						'marginTop': '8px',
-						'display':'block',
+						marginTop: '8px',
+						display:'block',
 						textAlign:'center' ,
 						color:'white',
 						}} >
@@ -38,3 +38,4 @@ class Cluster  extends React.Component{
 }
 
 export default Cluster;
+

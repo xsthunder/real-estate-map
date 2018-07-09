@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import redImg from './red.png'
-import greenImg from './green.png'
 import {Map, Marker} from 'react-bmap';
 import Cluster from './Cluster';
 import House from './House';
@@ -59,16 +57,6 @@ class App extends Component {
 	render() {
 		let markers = this.state.markers;
 		log(markers);
-//		markers = [{
-//        "total": 122,
-//        "lng": 121.29746582049177,
-//        "lat": 31.30116039049179,
-//        "avg": 39360.147540983606,
-//        "max": 55945,
-//        "min": 17938,
-//        "title": "嘉定区",
-//        "content": ""
-//    }];
 		markers = markers.map(
 			(o,i)=>{
 				if(!o.content)
@@ -78,7 +66,10 @@ class App extends Component {
 			}
 		);
 		return (
-			<Map center="上海市" zoom="12" enableScrollWheelZoom={true} className='map' style={{ height:'100%' }} events={this.events}>
+			<Map center="上海市" zoom="12" enableScrollWheelZoom={true} style={{
+				heigth:"100%"
+			}} 
+				events={this.events}>
 			{markers}
 			</Map>
 		);
