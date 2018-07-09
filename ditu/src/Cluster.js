@@ -14,6 +14,7 @@ class Cluster  extends React.Component{
 		this.events = {
 			onMouseEnter: this.mouseover,
 			onMouseLeave: this.mouseout,
+			onClick: this.props.handleClick,
 		}
 	}
 	handleMouse = (focus,e)=>{
@@ -25,6 +26,9 @@ class Cluster  extends React.Component{
 	}
 	mouseout = (e)=>{
 		this.handleMouse(false,e);
+	}
+	onclick = (e)=>{
+		// open a info window
 	}
 	render(){
 	const o = this.props.obj;

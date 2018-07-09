@@ -14,12 +14,16 @@ class App extends Component {
 	constructor(props){
 		super(props);
 		this.state = ({
-			markers:[]
+			markers:[],
+			focus:null,
 		});
 		this.events = {
 			zoomend:this.handleView,
 			dragend:this.handleView,
 		}
+	}
+	handleFocus = (focus)=>{
+		this.setState({focus});
 	}
 	handleView = (e)=>{
 		let p;
@@ -59,10 +63,15 @@ class App extends Component {
 		log(markers);
 		markers = markers.map(
 			(o,i)=>{
+				const props = {
+					obj:o,
+					key:i,
+					handleClick:()=>{this.handleFocus(o)}
+				}
 				if(!o.content)
-					return (<Cluster obj={o} key={i}/>)
+					return (<Cluster {...props}/>)
 				else 
-					return (<House obj={o} key={i}/>)
+					return (<House {...props}/>)
 			}
 		);
 		return (
