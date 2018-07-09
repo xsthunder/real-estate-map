@@ -1,31 +1,50 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import {Map, Marker} from 'react-bmap';
 import './App.css';
-const log = console.log;
+import {
+	getPoints,
+}from './req'
+import {
+	str, log
+}from './util'
 
 class App extends Component {
-	componentDidMount(){
-		log('did mount');
-		const BMap = window.BMap
-		var map = new BMap.Map("map");
-		// 创建地图实例  
-		var point = new BMap.Point(116.404, 39.915);
-		// 创建点坐标  
-		map.centerAndZoom(point, 15);
+	constructor(props){
+		super(props);
+		this.state = ({
+			markers:[]
+		});
 	}
-  render() {
-    return (
-				<div id='map' className='map'></div>
+	handleView = (p1, p2, level)=>{
+		this.updateMakers(p1, p2, level).then(
+			(markers)=>{
+				this.setState({markers});
+			})
+	}
+	componentDidMount(){
+		this.handleView();//init marker
+	}
+	updateMakers = async (p1, p2, level)=>{
+		try {
+			let res = await getPoints(p1,p2,level);
+			return res.data;
+		}
+		catch (err){
+			alert('Failed to fectch Points');
+			log(err);
+			return [];
+		}
+	}
+	render() {
+		let markers = this.state.markers;
+		markers = markers.map(
+			o=><Marker position={o} key={str(o.lng)+str(o.lat)} />
 		);
-      //<div className="App">
-      //  <header className="App-header">
-      //    <img src={logo} className="App-logo" alt="logo" />
-      //    <h1 className="App-title">Welcome to React</h1>
-      //  </header>
-      //  <p className="App-intro">
-      //    To get started, edit <code>src/App.js</code> and save to reload.
-      //  </p>
-      //</div>
+    return (
+			<Map center="上海市" zoom="12" enableScrollWheelZoom={true} className='map' style={{ height:'100%' }}>
+			{markers}
+			</Map>
+		);
   }
 }
 
