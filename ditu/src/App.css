@@ -22,6 +22,11 @@
   font-size: large;
 }
 
+.marker-size {
+	height: 74px;
+	width: 74px;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
