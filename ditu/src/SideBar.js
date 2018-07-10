@@ -23,13 +23,12 @@ class SideBar extends Component{
 	componentDidMount(){
 		const p = this.props.promise;
 		p&&p.then( (data)=>{
-			log(data);
 			this.setState({data,});
 		});
 	}
 	renderSearch = ()=>{
 		//TODO add keyword support as props from app
-		return <Search data={this.state.data}/>
+		return <Search focus={this.props.focus} data={this.state.data} handleChange={this.props.handleChange}/>
 	}
 	renderPrediction = (focus)=>{
 		// TODO add async support
@@ -51,7 +50,7 @@ class SideBar extends Component{
 		if(!focus)return null; 
 		return (
 			<div className="side-bar">
-				{(this.renderType)[focus.type](focus)}
+				{(this.renderType)[focus._type](focus)}
 			</div>
 		);
 	}

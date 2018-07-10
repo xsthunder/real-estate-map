@@ -11,7 +11,7 @@ import {
 	getSearch,
 }from './req'
 import {
-	str, log
+	str, log,searchLevel, warn
 }from './util'
 
 class App extends Component {
@@ -19,9 +19,11 @@ class App extends Component {
 		super(props);
 		this.state = ({
 			markers:[],
-			focus:{type:'search'},
-			search:{},
+			focus:{_type:'search'},
+			promise:null,// TODO cancel request to compontWillUnmount
 		});
+		//changing the upper level clear the lower level
+		//smaller index means upper level
 		this.events = {
 			zoomend:this.handleView,
 			dragend:this.handleView,
@@ -36,13 +38,31 @@ class App extends Component {
 			}
 		)
 	}
-	handleSearch = (key,e)=>{
-		if(key&&e){
-			const val = e.target.value;
-			this.setState({
-				[key]:val
-			});
+	handleSearchChange = (key,e)=>{
+		if(!key||!e){
+			warn('invalid call');
+			return;
 		}
+		log(e);
+		const val = e.target.value;
+		this.setState(
+			(prevState, props)=>{
+				// TODO clear lower level
+				const query = {};
+				const focus = prevState.focus;
+				searchLevel.forEach( (o)=>{
+					query[o] = focus[o];
+				});
+				const promise = getSearch(query);
+				const nxtFocus = Object.assign({}, focus, {
+					[key]:val
+				});
+				return {
+					focus:nxtFocus,
+					promise,
+				}
+			}
+		);
 	}
 	handleFocus = (focus)=>{
 		log(focus);
@@ -82,6 +102,19 @@ class App extends Component {
 			return [];
 		}
 	}
+	componentDidMount(){
+		const focus = this.state.focus;
+		if(focus._type==='search'){
+			const query = {};
+			searchLevel.forEach( (o)=>{
+				query[o] = focus[o];
+			});
+			const promise = getSearch(query);
+			this.setState({
+				promise,
+			});
+		}
+	}
 	render() {
 		let markers = this.state.markers;
 		markers = markers.map(
@@ -94,24 +127,32 @@ class App extends Component {
 					}
 				}
 				if(!o.content){
-					o.type = 'cluster';
+					o._type = 'cluster';
 					return (<Cluster {...props}/>)
 				}
 				else {
-					o.type = 'house';
+					o._type = 'house';
 					return (<House {...props}/>)
 				}
 			}
 		);
+		const props = {}
+		const focus = this.state.focus;
+		if(focus._type==='search'){
+			props.handleChange = this.handleSearchChange;
+			props.promise=this.state.promise;
+		}
 		return (
 				<Map center="上海市" zoom="12" enableScrollWheelZoom={true} style={{
 					heigth:"100%"
 				}} events={this.events}>
 				{markers}
-				<SideBar focus={this.state.focus} promise={getSearch()}/>
+				<SideBar focus={this.state.focus} {...props} />
 				<img 
 					onClick={()=>{
-						this.handleFocus({type:'search'})
+						const nxtFocus = { _type:'search' }
+						searchLevel.forEach( (o)=>nxtFocus[o]='' );// init state
+						this.handleFocus()
 					}} 
 							className='search-icon' src={`${searchIcon}`}/>
 				</Map>

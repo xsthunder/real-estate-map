@@ -13,6 +13,13 @@ const fix0 = (e)=>{
 	if(!e)return null;
 	return (e/10000).toFixed(0);
 }
+const searchLevel = [
+			'province',
+			'city',
+			'district',
+			'street',
+			'type',
+		];
 
 export{
 	log,
@@ -24,5 +31,6 @@ export{
 	SQAURE_METER,
 	fix2,
 	fix0,
+	searchLevel,
 };
 
