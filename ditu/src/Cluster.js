@@ -10,6 +10,7 @@ class Cluster  extends React.Component{
 		super(props);
 		this.state= {
 			focus: false,
+			data:null,
 		}
 		this.events = {
 			onMouseEnter: this.mouseover,

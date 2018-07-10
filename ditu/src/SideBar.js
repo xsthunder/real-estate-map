@@ -1,15 +1,8 @@
 import React, {Component} from 'react';
 import {
-	str, log
+	str, log,WANYUAN_UNIT ,SQAURE_METER,WANYUAN,fix2
 }from './util'
-
 import './App.css'
-
-
-function Prediction(props){
-
-}
-
 class SideBar extends Component{
 	constructor (props){
 		super(props);
@@ -40,21 +33,52 @@ class SideBar extends Component{
 	renderCluster(focus){
 		return (
 			<div>
-				<h4>{focus.title}</h4>
+				<h4 >{focus.title}</h4>
+				<h5 >
+						均价: {fix2(focus.avg)+WANYUAN_UNIT}
+				</h5>
+				<h5>
+						最低价:{fix2(focus.min)+WANYUAN_UNIT} 
+				</h5>
+				<h5>
+						最高价:{fix2(focus.max)+WANYUAN_UNIT} 
+				</h5>
 			</div>
 		);
 	}
 	renderHouse(focus){
+		const {
+			age,
+			decoration,
+			elevator,
+			oriented,
+			price,
+			room_type,
+			size,
+		} = focus.content
+		const unit = focus.avg;
+		const wrapper = (f, v, e='')=>{
+			if(!v)return null;
+			return (<li> {`${f}${v}${e}`} </li>);
+		}
 		return (
 			<div>
 				<h4>{focus.title}</h4>
+				<ul>
+					{wrapper('楼龄: ',age,'年')}
+					{wrapper('装修: ',decoration)}
+					{wrapper('电梯: ',elevator)}
+					{wrapper('朝向: ',oriented)}
+					{wrapper('单价: ',fix2(unit),WANYUAN_UNIT)}
+					{wrapper('总价: ',fix2(price), WANYUAN)}
+					{wrapper('面积: ',size,SQAURE_METER)}
+				</ul>
 			</div>
 		);
 	}
 	render(){
 		const focus = this.props.focus;
 		if(!focus)return null; 
-		log(focus);
 		return (
 			<div className="side-bar">
 				{(this.renderType)[focus.type](focus)}
