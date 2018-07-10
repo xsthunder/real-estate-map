@@ -87,8 +87,11 @@ class App extends Component {
 			(o,i)=>{
 				const props = {
 					obj:o,
-					key:i,
-					handleClick:()=>{this.handleFocus(o)}
+					key:o.title,
+					handleClick:(e)=>{
+						log(e,o)
+						this.handleFocus(o)
+					}
 				}
 				if(!o.content){
 					o.type = 'cluster';

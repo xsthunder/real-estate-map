@@ -3,7 +3,7 @@ import {Marker} from 'react-bmap';
 import redImg from './red.png'
 import greenImg from './green.png'
 import {
-	str, log, WANYUAN_UNIT
+	str, log, WANYUAN_UNIT,fix2,fix0
 }from './util'
 class Cluster  extends React.Component{
 	constructor(props){
@@ -26,9 +26,6 @@ class Cluster  extends React.Component{
 	}
 	mouseout = (e)=>{
 		this.handleMouse(false,e);
-	}
-	onclick = (e)=>{
-		// open a info window
 	}
 	render(){
 	const o = this.props.obj;
@@ -55,7 +52,7 @@ class Cluster  extends React.Component{
 						}} >
 							{title/*striped trailing 区*/}
 							<br/>
-							{(o.avg/10000).toFixed(0)}{WANYUAN_UNIT}
+							{fix0(o.avg)}{WANYUAN_UNIT}
 							<br/>
 							{o.total + "套"}
 							<br/>

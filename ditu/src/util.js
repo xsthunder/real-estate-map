@@ -8,6 +8,10 @@ const fix2 = (e)=>{
 	if(!e)return null;
 	return (e/10000).toFixed(2);
 }
+const fix0 = (e)=>{
+	if(!e)return null;
+	return (e/10000).toFixed(0);
+}
 
 export{
 	log,
@@ -17,5 +21,6 @@ export{
 	base_url,
 	SQAURE_METER,
 	fix2,
+	fix0,
 };
 
