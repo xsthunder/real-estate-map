@@ -108,7 +108,7 @@ class App extends Component {
 					heigth:"100%"
 				}} events={this.events}>
 				{markers}
-				<SideBar focus={this.state.focus} promise={new getSearch()}/>
+				<SideBar focus={this.state.focus} promise={getSearch()}/>
 				<img 
 					onClick={()=>{
 						this.handleFocus({type:'search'})

@@ -5,6 +5,7 @@ import {
 const wrapper = async(p,errMsg="some error occurs in axios, see console for detail")=>{
 	try{
 		let res = await(p);
+		return res.data;
 	}catch(err){
 		warn(err);
 		return {

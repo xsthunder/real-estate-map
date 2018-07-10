@@ -20,35 +20,16 @@ class SideBar extends Component{
 			data:null // data to be loaded from props.promise
 		}
 	}
+	componentDidMount(){
+		const p = this.props.promise;
+		p&&p.then( (data)=>{
+			log(data);
+			this.setState({data,});
+		});
+	}
 	renderSearch = ()=>{
 		//TODO add keyword support as props from app
-		return <Search />
-			//		if(!data){
-			//			return (<Loading/>)
-			//		}
-			//		const choices = data.choices;
-			//
-			//		return (
-			//			<form style={{height:'300px',overflowY:'auto'}}>
-			//				<ul>
-			//				{Object.entries(data).map( (entry)=>{
-			//						const k = entry[0];
-			//						const v = entry[1];
-			//						if(!Array.isArray(v))return null;
-			//						if(k === "choices")return null
-			//						const children = this.renderSelect(k,k,v);
-			//						return (
-			//						<li>
-			//							{children}
-			//						</li>
-			//					);
-			//				})}
-			//				</ul>
-			//				{
-			//					choices.map( (o)=> this.renderHouse(o))
-			//				}
-			//			</form>
-			//		);
+		return <Search data={this.state.data}/>
 	}
 	renderPrediction = (focus)=>{
 		// TODO add async support
