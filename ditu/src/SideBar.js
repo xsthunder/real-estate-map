@@ -10,10 +10,17 @@ class SideBar extends Component{
 			cluster:this.renderCluster,
 			prediction:this.renderPrediction,
 			house:this.renderHouse,
+			search:this.renderSearch,
 		}
 		this.state = {
 			data:{}
 		}
+	}
+	renderSelect(arr, cur){
+
+	}
+	renderSearch(){
+
 	}
 	renderPrediction(focus){
 		const {

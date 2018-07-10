@@ -4,6 +4,7 @@ import Cluster from './Cluster';
 import House from './House';
 import SideBar from'./SideBar';
 import './App.css';
+import searchIcon from './search-icon.png';
 import {
 	getPoints,
 	getPredict,
@@ -18,17 +19,6 @@ class App extends Component {
 		this.state = ({
 			markers:[],
 			focus:null,
-			/*{
-			 *   type:'point'
-			 * }
-			 */
-			/*
-			 * {
-			 *   type:'prediction'
-			 *   point: {lng, lat},
-			 *   msg:String
-			 * }
-			 */
 		});
 		this.events = {
 			zoomend:this.handleView,
@@ -63,7 +53,10 @@ class App extends Component {
 		}
 		p.then(
 			(markers)=>{
-				this.setState({markers});
+				this.setState({
+					markers,
+					focus:null,
+				});
 				log(markers)
 			})
 	}
@@ -109,6 +102,11 @@ class App extends Component {
 				}} events={this.events}>
 				{markers}
 				<SideBar focus={this.state.focus}/>
+				<img 
+					onClick={()=>{
+						this.handleFocus({type:'search'})
+					}} 
+							className='search-icon' src={`${searchIcon}`}/>
 				</Map>
 		);
   }

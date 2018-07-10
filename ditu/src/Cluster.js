@@ -3,7 +3,7 @@ import {Marker} from 'react-bmap';
 import redImg from './red.png'
 import greenImg from './green.png'
 import {
-	str, log, WANYUAN_UNIT,fix2,fix0
+	log, WANYUAN_UNIT,fix0
 }from './util'
 class Cluster  extends React.Component{
 	constructor(props){
@@ -15,6 +15,7 @@ class Cluster  extends React.Component{
 		this.events = {
 			onMouseEnter: this.mouseover,
 			onMouseLeave: this.mouseout,
+			onMouseOut:this.mouseout,
 			onClick: this.props.handleClick,
 		}
 	}
