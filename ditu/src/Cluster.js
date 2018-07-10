@@ -3,7 +3,7 @@ import {Marker} from 'react-bmap';
 import redImg from './red.png'
 import greenImg from './green.png'
 import {
-	str, log
+	str, log, WANYUAN_UNIT
 }from './util'
 class Cluster  extends React.Component{
 	constructor(props){
@@ -19,7 +19,6 @@ class Cluster  extends React.Component{
 	}
 	handleMouse = (focus,e)=>{
 		this.setState({focus});
-		log(e);
 	}
 	mouseover = (e)=>{
 		this.handleMouse(true,e);
@@ -35,9 +34,15 @@ class Cluster  extends React.Component{
 	const map = this.props.map;
 	const events =this.events;
 	const focus = this.state.focus;
+	let title = o.title;
+	const testDistrict = /区$/g
+	if(testDistrict.test(title)){
+		/*striped trailing 区*/
+		title = title.substr(0 , title.length - 1);
+	}
 	return(
 			<Marker position={o} title={o.title} map={map} >
-				<div onClick={function(){alert(1)}}  {...events} className="cluster-size" style={{
+				<div {...events} className="cluster-size" style={{
 					background:`url(${focus?greenImg:redImg})`, 
 				}}>
 						<div className="cluster-size" style={{
@@ -47,11 +52,11 @@ class Cluster  extends React.Component{
 						textAlign:'center' ,
 						color:'white',
 						}} >
-							{o.title}
+							{title/*striped trailing 区*/}
 							<br/>
-							{(o.avg/10000).toFixed(0)}万元/㎡
-							{o.total>1?<br/>:null}
-							{o.total>1?(o.total + "套"):null}
+							{(o.avg/10000).toFixed(0)}{WANYUAN_UNIT}
+							<br/>
+							{o.total + "套"}
 							<br/>
 						</div>
 				</div>

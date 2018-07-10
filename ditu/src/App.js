@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import {Map} from 'react-bmap';
 import Cluster from './Cluster';
 import House from './House';
+import SideBar from'./SideBar';
 import './App.css';
 import {
 	getPoints,
+	getPredict,
 }from './req'
 import {
 	str, log
@@ -16,13 +18,34 @@ class App extends Component {
 		this.state = ({
 			markers:[],
 			focus:null,
+			/*{
+			 *   type:'point'
+			 * }
+			 */
+			/*
+			 * {
+			 *   type:'prediction'
+			 *   point: {lng, lat},
+			 *   msg:String
+			 * }
+			 */
 		});
 		this.events = {
 			zoomend:this.handleView,
 			dragend:this.handleView,
+			rightclick:this.predict,
 		}
 	}
+	predict = (e)=>{
+		const point = e.point;
+		getPredict(point).then(
+			(focus)=>{
+				this.handleFocus(focus);
+			}
+		)
+	}
 	handleFocus = (focus)=>{
+		log(focus);
 		this.setState({focus});
 	}
 	handleView = (e)=>{
@@ -41,13 +64,13 @@ class App extends Component {
 		p.then(
 			(markers)=>{
 				this.setState({markers});
+				log(markers)
 			})
 	}
 	componentDidMount(){
 		this.handleView();//init marker
 	}
 	updateMakers = async (p1, p2, level)=>{
-//		log(p1,p2,level);
 		try {
 			let res = await getPoints(p1,p2,level);
 			return res.data;
@@ -60,7 +83,6 @@ class App extends Component {
 	}
 	render() {
 		let markers = this.state.markers;
-		log(markers);
 		markers = markers.map(
 			(o,i)=>{
 				const props = {
@@ -68,19 +90,23 @@ class App extends Component {
 					key:i,
 					handleClick:()=>{this.handleFocus(o)}
 				}
-				if(!o.content)
+				if(!o.content){
+					o.type = 'cluster';
 					return (<Cluster {...props}/>)
-				else 
+				}
+				else {
+					o.type = 'house';
 					return (<House {...props}/>)
+				}
 			}
 		);
 		return (
-			<Map center="上海市" zoom="12" enableScrollWheelZoom={true} style={{
-				heigth:"100%"
-			}} 
-				events={this.events}>
-			{markers}
-			</Map>
+				<Map center="上海市" zoom="12" enableScrollWheelZoom={true} style={{
+					heigth:"100%"
+				}} events={this.events}>
+				{markers}
+				<SideBar focus={this.state.focus}/>
+				</Map>
 		);
   }
 }
