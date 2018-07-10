@@ -19,7 +19,7 @@ class App extends Component {
 		super(props);
 		this.state = ({
 			markers:[],
-			focus:null,
+			focus:{type:'search'},
 			search:{},
 		});
 		this.events = {
@@ -65,13 +65,11 @@ class App extends Component {
 			(markers)=>{
 				this.setState({
 					markers,
-					focus:null,
+					//TODO to debug search
+					//focus:null,
 				});
 				log(markers)
 			})
-	}
-	componentDidMount(){
-		this.handleView();//init marker
 	}
 	updateMakers = async (p1, p2, level)=>{
 		try {

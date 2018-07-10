@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
-import Loading from './Loading';
 import {
-	str, log,WANYUAN_UNIT ,SQAURE_METER,WANYUAN,fix2
+	str, log
 }from './util'
 import './App.css'
 import ClusterInfo from './ClusterInfo';
 import HouseInfo from './HouseInfo';
 import PredictionInfo from './PredictionInfo';
-import Select from './Select';
-import searchData from './dev/search.json';
+import Search from './Search';
 class SideBar extends Component{
 	constructor (props){
 		super(props);
@@ -22,61 +20,49 @@ class SideBar extends Component{
 			data:null // data to be loaded from props.promise
 		}
 	}
-	renderSelect = (label,key,arr)=>{
-		const k = key;//avoid use of key
-		return <Select 
-			{...{label, k, arr}} 
-			handleChange={this.handleSelect}
-			value=''//TODO pass as props from APP
-						/>
-	}
-	renderSearch = ()=>{//ignore focus;
-		const data = searchData;
-		if(!data){
-			return (<Loading/>)
-		}
-		const choices = data.choices;
-		return (
-			<form style={{height:'300px',overflowY:'auto'}}>
-				<ul>
-				{Object.entries(data).map( (entry)=>{
-						const k = entry[0];
-						const v = entry[1];
-						if(!Array.isArray(v))return null;
-						if(k === "choices")return null
-						const children = this.renderSelect(k,k,v);
-						return (
-						<li>
-							{children}
-						</li>
-					);
-				})}
-				</ul>
-				{
-					choices.map( (o)=> this.renderHouse(o))
-				}
-			</form>
-		);
+	renderSearch = ()=>{
+		//TODO add keyword support as props from app
+		return <Search />
+			//		if(!data){
+			//			return (<Loading/>)
+			//		}
+			//		const choices = data.choices;
+			//
+			//		return (
+			//			<form style={{height:'300px',overflowY:'auto'}}>
+			//				<ul>
+			//				{Object.entries(data).map( (entry)=>{
+			//						const k = entry[0];
+			//						const v = entry[1];
+			//						if(!Array.isArray(v))return null;
+			//						if(k === "choices")return null
+			//						const children = this.renderSelect(k,k,v);
+			//						return (
+			//						<li>
+			//							{children}
+			//						</li>
+			//					);
+			//				})}
+			//				</ul>
+			//				{
+			//					choices.map( (o)=> this.renderHouse(o))
+			//				}
+			//			</form>
+			//		);
 	}
 	renderPrediction = (focus)=>{
+		// TODO add async support
 		const {
 			lng,lat,msg
 		} = focus;
-		return (
-			<div>
-			<h4>
-				经度:{lng} 纬度:{lat}
-			</h4>
-			<p>
-				{msg}
-			</p>
-			</div>
-		);
+		return <PredictionInfo {...{lng,lat,msg}} />
 	}
 	renderCluster  = (focus)=>{
+		// TODO add analyse and async support
 		return <ClusterInfo {...{focus}}/>
 	}
 	renderHouse(focus){
+		// TODO and detail and async support
 		return <HouseInfo {...{focus}}/>
 	}
 	render(){

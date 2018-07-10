@@ -6,11 +6,11 @@ function Select(props){
 	const {
 		label, k, arr, handleChange, value
 	} = props;
-	log(k,arr);
+
 	return (
 	<label key={label}>
 		{label}
-		<select value={value}  onChange={e=>this.handleChange(k,e)}>
+		<select value={value}  onChange={e=>handleChange(k,e)}>
 				{
 					arr.map( (o)=>
 						(<option value={o} key={o}>{o}</option>)

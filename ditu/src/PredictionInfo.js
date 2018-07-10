@@ -1,9 +1,8 @@
 import React from 'react';
 function Prediction (props){
-	const focus = props.focus;
 	const {
 		lng,lat,msg
-	} = focus;
+	} = props;
 	return (
 		<div>
 		<h4>
@@ -14,6 +13,6 @@ function Prediction (props){
 		</p>
 		</div>
 	);
-
 }
 
+export default Prediction;
