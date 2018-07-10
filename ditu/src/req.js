@@ -1,7 +1,19 @@
 import axios from 'axios'
 import {
-	str, log, WANYUAN_UNIT, base_url,
+	str, log, WANYUAN_UNIT, base_url,warn
 }from './util'
+const wrapper = async(p,errMsg="some error occurs in axios, see console for detail")=>{
+	try{
+		let res = await(p);
+	}catch(err){
+		warn(err);
+		return {
+			err:1,
+			errMsg:errMsg,
+		};
+	}
+
+}
 
 const getPoints = (p1 = {"lng":121.460418,"lat":31.173785}, p2 = {"lng":121.504686,"lat":31.29186}, level = 13)=>{
 	return axios.get(
@@ -37,7 +49,17 @@ const analyseDistrict = async (district)=>{
 
 	}
 }
+const getSearch = (obj)=>{
+	return wrapper(
+		axios.get( 
+			`${base_url}/house/search`,
+			{
+				params:obj
+			})
+		);
+}
 export {
 	getPoints,
 	getPredict,
+	getSearch,
 }

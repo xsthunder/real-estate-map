@@ -8,6 +8,7 @@ import searchIcon from './search-icon.png';
 import {
 	getPoints,
 	getPredict,
+	getSearch,
 }from './req'
 import {
 	str, log
@@ -19,6 +20,7 @@ class App extends Component {
 		this.state = ({
 			markers:[],
 			focus:null,
+			search:{},
 		});
 		this.events = {
 			zoomend:this.handleView,
@@ -33,6 +35,14 @@ class App extends Component {
 				this.handleFocus(focus);
 			}
 		)
+	}
+	handleSearch = (key,e)=>{
+		if(key&&e){
+			const val = e.target.value;
+			this.setState({
+				[key]:val
+			});
+		}
 	}
 	handleFocus = (focus)=>{
 		log(focus);
@@ -82,7 +92,6 @@ class App extends Component {
 					obj:o,
 					key:o.title,
 					handleClick:(e)=>{
-						log(e,o)
 						this.handleFocus(o)
 					}
 				}
@@ -101,7 +110,7 @@ class App extends Component {
 					heigth:"100%"
 				}} events={this.events}>
 				{markers}
-				<SideBar focus={this.state.focus}/>
+				<SideBar focus={this.state.focus} promise={new getSearch()}/>
 				<img 
 					onClick={()=>{
 						this.handleFocus({type:'search'})

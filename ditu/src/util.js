@@ -1,4 +1,5 @@
 const log = console.log;
+const warn = console.warn;
 const str = JSON.stringify;
 const WANYUAN_UNIT = '万元/㎡'
 const WANYUAN= '万元'
@@ -15,6 +16,7 @@ const fix0 = (e)=>{
 
 export{
 	log,
+	warn,
 	str,
 	WANYUAN_UNIT,
 	WANYUAN,
