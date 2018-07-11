@@ -1,12 +1,11 @@
 import React from 'react';
-import searchData from './dev/search.json';
 import Loading from './Loading';
 import Select from './Select';
 import HouseInfo from './HouseInfo';
 import Err from './Err';
 import './App.css';
 import {
-	log,warn, searchLevel
+ searchLevel
 }from './util';
 import {
 	getSearch,
@@ -31,13 +30,11 @@ class Search extends React.Component{
 		const prevData = prevState.data;//immutatble
 		const query = {};
 		searchLevel.forEach(o=>query[o]=prevState[o])
-		log(e,query);
 		if(key){
 			const val = e.target.value;
 			query[key] = val;
 			const level = (searchLevel.indexOf(key))
 			const toBeRm = searchLevel.slice(level + 1)
-			log('tobeRm',toBeRm);
 			toBeRm.forEach( (o)=>query[o]='' );
 		}
 		getSearch(query).then(
@@ -66,7 +63,6 @@ class Search extends React.Component{
 			return (<Err {...data}/>);
 		}
 		const choices = data.choices;
-		log(data)
 		return (
 			<form className="scroll">
 				<ul>

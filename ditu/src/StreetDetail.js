@@ -3,12 +3,6 @@ import Loading from './Loading';
 import Err from './Err';
 import HouseInfo from './HouseInfo';
 import {
-BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend
-} from 'recharts';
-import {
-	log,fix2,WANYUAN_UNIT
-}from './util';
-import {
 	getStreetDetail,
 }from './req';
 export default class extends React.Component {
@@ -28,7 +22,6 @@ export default class extends React.Component {
 	}
 	render(){
 		const {
-			type,
 			title,
 		} = this.props;
 		const req = getStreetDetail;

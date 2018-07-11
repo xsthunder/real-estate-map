@@ -1,7 +1,4 @@
 import React from 'react';
-import {
-	log
-}from './util';
 function Select(props){
 	const {
 		label, k, arr, handleChange, value

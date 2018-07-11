@@ -1,7 +1,4 @@
 import React, {Component} from 'react';
-import {
-	str, log
-}from './util'
 import './App.css'
 import ClusterInfo from './ClusterInfo';
 import HouseInfo from './HouseInfo';

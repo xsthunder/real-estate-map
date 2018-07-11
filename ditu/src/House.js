@@ -1,8 +1,5 @@
 import React from 'react';
 import {Marker} from 'react-bmap';
-import {
-	str, log
-}from './util'
 class Cluster  extends React.Component{
 	constructor(props){
 		super(props);
@@ -34,7 +31,7 @@ class Cluster  extends React.Component{
 	const focus = this.state.focus;
 	let title = o.title;
 	return(
-			<Marker position={o} title={o.title} map={map} >
+			<Marker position={o} title={title} map={map} >
 				<div {...events} className={focus?'map-house-focus':'map-house'} >
 							{(o.avg/10000).toFixed(0)}万元/㎡
 				</div>

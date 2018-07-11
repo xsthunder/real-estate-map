@@ -8,9 +8,6 @@ import searchIcon from './search-icon.png';
 import {
 	getPoints,
 }from './req'
-import {
-	str, log,searchLevel, warn
-}from './util'
 
 class App extends Component {
 	constructor(props){
@@ -48,7 +45,6 @@ class App extends Component {
 		this.handleFocus(focus);
 	}
 	handleFocus = (focus)=>{
-		log(focus);
 		this.setState({focus});
 	}
 	handleView = (e)=>{
@@ -71,7 +67,6 @@ class App extends Component {
 					focus:null,
 					//FIXME now debug cluster analyse
 				});
-				log(markers)
 			})
 	}
 	updateMakers = async (p1, p2, level)=>{
@@ -81,7 +76,6 @@ class App extends Component {
 		}
 		catch (err){
 			alert('Failed to fectch Points');
-			log(err);
 			return [];
 		}
 	}
@@ -113,6 +107,7 @@ class App extends Component {
 				{markers}
 				<SideBar focus={this.state.focus} />
 				<img 
+					alt="search button"
 					onClick={()=>{
 						this.handleFocus( { _type:'search' })
 					}} 

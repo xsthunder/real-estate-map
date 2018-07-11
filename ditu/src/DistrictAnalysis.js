@@ -5,10 +5,10 @@ import {
 BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend
 } from 'recharts';
 import {
-	log,fix2,WANYUAN_UNIT
+	fix2,WANYUAN_UNIT
 }from './util';
 import {
-	notReq,getDistrictAnalysis,
+	getDistrictAnalysis,
 }from './req';
 export default class extends React.Component {
 	constructor(props){
@@ -27,7 +27,6 @@ export default class extends React.Component {
 	}
 	render(){
 		const {
-			type,
 			title,
 		} = this.props;
 		const req = getDistrictAnalysis;

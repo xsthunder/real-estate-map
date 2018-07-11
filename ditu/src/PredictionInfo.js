@@ -6,9 +6,6 @@ import {
 class Prediction extends React.Component{
 	constructor(props){
 		super(props);
-		const {
-			lng, lat
-		} = props;
 		this.state = {
 			data:null,
 		}

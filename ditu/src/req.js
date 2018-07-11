@@ -1,10 +1,7 @@
 import axios from 'axios'
 import {
-	str, log, WANYUAN_UNIT, base_url,warn
+	WANYUAN_UNIT, base_url,warn
 }from './util'
-const notReq = ()=>{
-	return wrapper(Promise.reject(),'notReq called');
-}
 const wrapper = async(p,errMsg="some error occurs in axios, see console for detail")=>{
 	try{
 		let res = await(p);
@@ -62,7 +59,7 @@ const getStreetDetail= async (street)=>{
 }
 const getSearch = (obj)=>{
 	const clear = {};
-	Object.entries(obj).map((entry)=>{
+	Object.entries(obj).forEach((entry)=>{
 		const k = entry[0]
 		const v = entry[1]
 		if(v)clear[k] = v;
@@ -79,7 +76,6 @@ export {
 	getPoints,
 	getPredict,
 	getSearch,
-	//notReq, this will raise err
 	getDistrictAnalysis,
 	getStreetDetail,
 }

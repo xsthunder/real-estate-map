@@ -2,14 +2,12 @@ import React from 'react';
 import DistrictAnalysis from './DistrictAnalysis';
 import StreetDetail from './StreetDetail';
 import {
-	WANYUAN_UNIT ,SQAURE_METER,WANYUAN,fix2,testDistrict,
+	WANYUAN_UNIT ,fix2,testDistrict,
 }from './util'
 function ClusterInfo(props){
 	const {
 		avg,
 		title,
-		max,
-		min,
 	} = props;
 	const type = testDistrict(title)?'district':'street';
 	const inline = {
