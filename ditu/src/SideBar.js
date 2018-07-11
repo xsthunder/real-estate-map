@@ -39,10 +39,11 @@ class SideBar extends Component{
 	}
 	renderCluster  = (focus)=>{
 		// TODO add analyse and async support
-		return <ClusterInfo {...{focus}}/>
+		return <ClusterInfo {...focus}/>
 	}
 	renderHouse(focus){
 		// TODO and detail and async support
+		// TODO unwrap focus
 		return <HouseInfo {...{focus}}/>
 	}
 	render(){

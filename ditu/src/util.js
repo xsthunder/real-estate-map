@@ -5,8 +5,8 @@ const WANYUAN_UNIT = '万元/㎡'
 const WANYUAN= '万元'
 const base_url = 'http://139.224.114.96';
 const SQAURE_METER = '㎡';
-const reDistrict = /区$/g
-const reNewDistrict = /新区$/g
+const reDistrict = /.*区$/
+const reNewDistrict = /.*新区$/
 const fix2 = (e)=>{
 	if(!e)return null;
 	return (e/10000).toFixed(2);
@@ -22,7 +22,9 @@ const searchLevel = [
 			'street',
 			'type',
 		];
-
+const testDistrict = (title)=>{
+	return reDistrict.test(title)||reNewDistrict.test(title);
+}
 export{
 	log,
 	warn,
@@ -36,5 +38,6 @@ export{
 	searchLevel,
 	reDistrict,
 	reNewDistrict,
+	testDistrict,
 };
 

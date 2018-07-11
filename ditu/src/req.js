@@ -2,6 +2,9 @@ import axios from 'axios'
 import {
 	str, log, WANYUAN_UNIT, base_url,warn
 }from './util'
+const notReq = ()=>{
+	return wrapper(Promise.reject(),'notReq called');
+}
 const wrapper = async(p,errMsg="some error occurs in axios, see console for detail")=>{
 	try{
 		let res = await(p);
@@ -39,15 +42,14 @@ const getPredict =async (p)=> {
 		}
 	}
 }
-const analyseDistrict = async (district)=>{
-	try{
-		let res = await axios.get(
-			`${base_url}/house/analysis?district=${district}`
-		);
-	}
-	catch(err){
-		//TODO add err
-	}
+const getDistrictAnalysis = async (district)=>{
+	const res = await wrapper(axios.get(
+		`${base_url}/house/analysis`,
+		{
+			params:{ district, }
+		}
+		));
+		return res;
 }
 const getSearch = (obj)=>{
 	const clear = {};
@@ -68,4 +70,6 @@ export {
 	getPoints,
 	getPredict,
 	getSearch,
+	notReq,
+	getDistrictAnalysis,
 }

@@ -1,5 +1,5 @@
-.App {
-  text-align: center;
+.title {
+  font-size: x-large;
 }
 
 .App-logo {
@@ -75,6 +75,9 @@
 	bottom: 30px;
 	right: 30px;
 	cursor: pointer;
+}
+.inline {
+	display:inline;
 }
 
 @keyframes App-logo-spin {
