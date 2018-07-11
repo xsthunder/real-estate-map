@@ -17,7 +17,7 @@ class SideBar extends Component{
 			search:this.renderSearch,
 		}
 		this.state = {// move to sub component
-			data:null ,// data to be loaded from props.promise
+			data:null ,
 			promise:null,// TODO cancel request to compontWillUnmount
 		}
 	}
@@ -28,7 +28,6 @@ class SideBar extends Component{
 		});
 	}
 	renderSearch = ()=>{
-		//TODO add keyword support as props from app
 		return <Search focus={this.props.focus} />
 	}
 	renderPrediction = (focus)=>{

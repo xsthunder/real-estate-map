@@ -31,8 +31,10 @@ class App extends Component {
 	}
 	predict = (e)=>{
 		const point = e.point;
+		//TODO move this promise to Prediction
 		getPredict(point).then(
 			(focus)=>{
+				focus._type = 'prediction';
 				this.handleFocus(focus);
 			}
 		)
@@ -58,8 +60,7 @@ class App extends Component {
 			(markers)=>{
 				this.setState({
 					markers,
-					//TODO to debug search
-					//focus:null,
+					focus:null,
 				});
 				log(markers)
 			})
@@ -117,9 +118,7 @@ class App extends Component {
 				<SideBar focus={this.state.focus} />
 				<img 
 					onClick={()=>{
-						const nxtFocus = { _type:'search' }
-						searchLevel.forEach( (o)=>nxtFocus[o]='' );// init state
-						this.handleFocus()
+						this.handleFocus( { _type:'search' })
 					}} 
 							className='search-icon' src={`${searchIcon}`}/>
 				</Map>

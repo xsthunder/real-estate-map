@@ -27,7 +27,6 @@ const getPredict =async (p)=> {
 			`${base_url}/house/prediction?x=${p.lng}&y=${p.lat}`
 		);
 		res = res.data;
-		p.type = 'prediction';
 		return {
 			...p,
 			msg:res.status?'数据不足，预测失败，请选择其他点':`该预测房价为${res.data.toFixed(2)} ${WANYUAN_UNIT}`
@@ -47,15 +46,21 @@ const analyseDistrict = async (district)=>{
 		);
 	}
 	catch(err){
-
+		//TODO add err
 	}
 }
 const getSearch = (obj)=>{
+	const clear = {};
+	Object.entries(obj).map((entry)=>{
+		const k = entry[0]
+		const v = entry[1]
+		if(v)clear[k] = v;
+	});
 	return wrapper(
 		axios.get( 
 			`${base_url}/house/search`,
 			{
-				params:obj
+				params:clear,
 			})
 		);
 }

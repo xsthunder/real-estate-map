@@ -6,8 +6,6 @@ function Select(props){
 	const {
 		label, k, arr, handleChange, value
 	} = props;
-	log(arr)
-
 	return (
 	<label key={label}>
 		{label}

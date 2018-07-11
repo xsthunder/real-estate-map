@@ -24,19 +24,31 @@ class Search extends React.Component{
 		// TODO add cancel
 		// FIXME assume promise finished in sequence
 		// FIXME depend on previous state, use updater instead
+		// get a copy of state 
+		const prevState = Object.assign({},this.state); //immutatble
+
+		const prevData = prevState.data;//immutatble
 		const query = {};
-		const state = this.state;
-		searchLevel.forEach( (o)=>{
-			if(state[o])query[o] = state[o]
-		});
+		searchLevel.forEach(o=>query[o]=prevState[o])
 		log(e,query);
 		if(key){
 			const val = e.target.value;
 			query[key] = val;
+			const level = (searchLevel.indexOf(key))
+			const toBeRm = searchLevel.slice(level + 1)
+			log('tobeRm',toBeRm);
+			toBeRm.forEach( (o)=>query[o]='' );
 		}
-		//TODO clear lower level;
 		getSearch(query).then(
-			(data)=>this.setState({...query,data})
+			(data)=>{
+				if(key && prevData){
+				//update only lower level
+					const level = (searchLevel.indexOf(key))
+					const unChange = searchLevel.slice(0,level + 1)
+					unChange.forEach( (o)=>data[o]=prevData[o] );
+				}
+				this.setState({...query,data})
+			}
 		);
 	}
 	render(){
@@ -56,12 +68,12 @@ class Search extends React.Component{
 		log(data)
 		return (
 			<form style={{height:'300px',overflowY:'auto'}}>
-			<ul>
-				{Object.entries(data).map( (entry)=>{
-					const k = entry[0];
-					const label = k;
-					let arr = entry[1];
-					if(!Array.isArray(arr))return null;
+				<ul>
+					{Object.entries(data).map( (entry)=>{
+						const k = entry[0];
+						const label = k;
+						let arr = entry[1];
+						if(!Array.isArray(arr))return null;
 					if(k === "choices")return null
 					arr = arr.concat(['']);
 					//avoid use of key
