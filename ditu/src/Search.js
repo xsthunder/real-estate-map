@@ -79,6 +79,7 @@ class Search extends React.Component{
 					arr = arr.concat(['']);
 					//avoid use of key
 					const children = (<Select 
+						key={label}
 						value={query[k]}
 						{...{label, k, arr}} 
 						handleChange={handleChange}
@@ -91,7 +92,7 @@ class Search extends React.Component{
 				})}
 			</ul>
 			{
-				choices?choices.map( (o)=> (<HouseInfo focus={o}/>)):null
+				choices?choices.map( (o)=> (<HouseInfo key={o.title} fold={true} focus={o}/>)):null
 			}
 			</form>
 		);

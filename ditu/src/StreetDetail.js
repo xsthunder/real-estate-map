@@ -42,7 +42,7 @@ export default class extends React.Component {
 		if(data.err)return (<Err {...data}/>)
 		return (<div>
 				{data.map(
-					(o)=> (<HouseInfo key={o.content.title} fold={true}  focus={o}/>)
+					(o)=> (<HouseInfo key={o.title} fold={true}  focus={o}/>)
 				)}
 	</div>);
 		
