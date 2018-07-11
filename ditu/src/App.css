@@ -78,6 +78,7 @@
 }
 .inline {
 	display:inline;
+	padding-left:10px;
 }
 
 @keyframes App-logo-spin {

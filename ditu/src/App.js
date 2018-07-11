@@ -7,8 +7,6 @@ import './App.css';
 import searchIcon from './search-icon.png';
 import {
 	getPoints,
-	getPredict,
-	getSearch,
 }from './req'
 import {
 	str, log,searchLevel, warn
@@ -21,18 +19,18 @@ class App extends Component {
 			markers:[],
 			focus:null,
 			//FIXME debuging cluster analysis
-			//			focus: {
-			//				"total": 4545,
-			//				"lng": 121.41934682844794,
-			//				"lat": 31.257015882347666,
-			//				"avg": 61887.98635863586,
-			//				"max": 150000,
-			//				"min": 16309,
-			//				"title": "上大路",
-			//				//"title": "宝山区",
-			//				"content": "",
-			//				"_type": "cluster",
-			//			}
+			//						focus: {
+			//							"total": 4545,
+			//							"lng": 121.41934682844794,
+			//							"lat": 31.257015882347666,
+			//							"avg": 61887.98635863586,
+			//							"max": 150000,
+			//							"min": 16309,
+			//							"title": "上大路",
+			//							//"title": "宝山区",
+			//							"content": "",
+			//							"_type": "cluster",
+			//						}
 		});
 		//changing the upper level clear the lower level
 		//smaller index means upper level
@@ -45,12 +43,9 @@ class App extends Component {
 	predict = (e)=>{
 		const point = e.point;
 		//TODO move this promise to Prediction
-		getPredict(point).then(
-			(focus)=>{
-				focus._type = 'prediction';
-				this.handleFocus(focus);
-			}
-		)
+		const focus = {...point};
+		focus._type = 'prediction';
+		this.handleFocus(focus);
 	}
 	handleFocus = (focus)=>{
 		log(focus);
