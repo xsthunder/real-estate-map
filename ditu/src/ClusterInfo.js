@@ -1,5 +1,6 @@
 import React from 'react';
-import ClusterAnalysis from './ClusterAnalysis';
+import DistrictAnalysis from './DistrictAnalysis';
+import StreetDetail from './StreetDetail';
 import {
 	WANYUAN_UNIT ,SQAURE_METER,WANYUAN,fix2,testDistrict,
 }from './util'
@@ -27,7 +28,11 @@ function ClusterInfo(props){
 				<h5>
 						最高价:{fix2(max)+WANYUAN_UNIT} 
 				</h5>*/}
-				<ClusterAnalysis type={type} title={title}/>
+				{
+					type==='district'?
+						(<DistrictAnalysis title={title}/>)
+						:(<StreetDetail title={title}/>)
+				}
 			</div>
 		);
 }

@@ -17,10 +17,6 @@ export default class extends React.Component {
 				data:null,
 				title:'',
 			};
-		this.req = {
-			'street':null,
-			'district':getDistrictAnalysis,
-		}
 	}
 	call(req,title){
 		req(title).then(
@@ -34,8 +30,7 @@ export default class extends React.Component {
 			type,
 			title,
 		} = this.props;
-		const req = this.req[type];
-		if(!req)return <Err errMsg="not written yet"/>
+		const req = getDistrictAnalysis;
 		let {
 			data,
 		}  = this.state;

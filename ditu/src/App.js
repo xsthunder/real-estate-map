@@ -19,7 +19,7 @@ class App extends Component {
 		super(props);
 		this.state = ({
 			markers:[],
-			//focus:null,
+			focus:null,
 			//FIXME debuging cluster analysis
 			//			focus: {
 			//				"total": 4545,
@@ -28,10 +28,10 @@ class App extends Component {
 			//				"avg": 61887.98635863586,
 			//				"max": 150000,
 			//				"min": 16309,
-			//				//"title": "上大路",
-			//				"title": "宝山区",
+			//				"title": "上大路",
+			//				//"title": "宝山区",
 			//				"content": "",
-			//				"_type": "cluster"
+			//				"_type": "cluster",
 			//			}
 		});
 		//changing the upper level clear the lower level
@@ -73,7 +73,7 @@ class App extends Component {
 			(markers)=>{
 				this.setState({
 					markers,
-					//focus:null,
+					focus:null,
 					//FIXME now debug cluster analyse
 				});
 				log(markers)

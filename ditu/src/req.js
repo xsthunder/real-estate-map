@@ -53,7 +53,7 @@ const getDistrictAnalysis = async (district)=>{
 }
 const getStreetDetail= async (street)=>{
 	const res = await wrapper(axios.get(
-		`${base_url}/house/analysis`,
+		`${base_url}/house/detail`,
 		{
 			params:{ street, }
 		}
