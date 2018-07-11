@@ -62,6 +62,12 @@
 	background: white;
 	opacity: 0.9;
 }
+
+.scroll {
+	overflow-y: auto;
+	height: 100%;
+}
+
 .search-icon {
 	position: fixed;
 	width: 120px;

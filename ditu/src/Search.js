@@ -4,6 +4,7 @@ import Loading from './Loading';
 import Select from './Select';
 import HouseInfo from './HouseInfo';
 import Err from './Err';
+import './App.css';
 import {
 	log,warn, searchLevel
 }from './util';
@@ -67,7 +68,7 @@ class Search extends React.Component{
 		const choices = data.choices;
 		log(data)
 		return (
-			<form style={{height:'300px',overflowY:'auto'}}>
+			<form className="scroll">
 				<ul>
 					{Object.entries(data).map( (entry)=>{
 						const k = entry[0];
