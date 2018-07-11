@@ -28,7 +28,7 @@ class App extends Component {
 				"avg": 61887.98635863586,
 				"max": 150000,
 				"min": 16309,
-				"title": "普陀区",
+				"title": "上大路",
 				"content": "",
 				"_type": "cluster"
 			}

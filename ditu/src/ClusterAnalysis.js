@@ -17,11 +17,9 @@ export default class extends React.Component {
 				data:null,
 			};
 		this.req = {
-			'street':notReq,
+			'street':null,
 			'district':getDistrictAnalysis,
 		}
-	}
-	componentDidMount(){
 	}
 	render(){
 		const {
@@ -29,6 +27,7 @@ export default class extends React.Component {
 			title,
 		} = this.props;
 		const req = this.req[type];
+		if(!req)return <Err errMsg="not written yet"/>
 		let {
 			data,
 		}  = this.state;
@@ -39,13 +38,10 @@ export default class extends React.Component {
 		);
 		if(!data)return <Loading/>;
 		if(data.err)return <Err {...data}/>
-			//const min = data[0].min;
-		  //const max = data[data.length-1].max;
 		data = data.map( o=>({
 			name:`[${fix2(o.min)},${fix2(o.max)}]`,
 			count: o.total,
 		}));
-		//log(min,max)
   	return (
     	<BarChart width={350} height={300} data={data}
             margin={{top: 5, right: 30, left: 20, bottom: 5}}>

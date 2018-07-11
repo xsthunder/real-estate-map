@@ -79,7 +79,7 @@ export {
 	getPoints,
 	getPredict,
 	getSearch,
-	notReq,
+	//notReq, this will raise err
 	getDistrictAnalysis,
 	getStreetDetail,
 }
