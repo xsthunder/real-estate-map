@@ -3,7 +3,8 @@ import {Marker} from 'react-bmap';
 import redImg from './red.png'
 import greenImg from './green.png'
 import {
-	log, WANYUAN_UNIT,fix0
+	log, WANYUAN_UNIT,fix0,
+	reDistrict, reNewDistrict,
 }from './util'
 class Cluster  extends React.Component{
 	constructor(props){
@@ -34,10 +35,16 @@ class Cluster  extends React.Component{
 	const events =this.events;
 	const focus = this.state.focus;
 	let title = o.title;
-	const testDistrict = /区$/g
-	if(testDistrict.test(title)){
+	let type = 'street';
+	if(reNewDistrict.test(title) ){
+		/*striped trailing 新区*/
+		title = title.substr(0 , title.length - 2);
+		type = 'district';
+	}
+	if(reDistrict.test(title)){
 		/*striped trailing 区*/
 		title = title.substr(0 , title.length - 1);
+		type = 'district';
 	}
 	return(
 			<Marker position={o} title={o.title} map={map} >

@@ -1,4 +1,5 @@
 import React from 'react';
+import ClusterAnalysis from './ClusterAnalysis';
 import {
 	WANYUAN_UNIT ,SQAURE_METER,WANYUAN,fix2
 }from './util'
@@ -16,6 +17,7 @@ function ClusterInfo(props){
 				<h5>
 						最高价:{fix2(focus.max)+WANYUAN_UNIT} 
 				</h5>
+				<ClusterAnalysis/>
 			</div>
 		);
 }
