@@ -21,17 +21,18 @@ class App extends Component {
 			markers:[],
 			//focus:null,
 			//FIXME debuging cluster analysis
-			focus: {
-				"total": 4545,
-				"lng": 121.41934682844794,
-				"lat": 31.257015882347666,
-				"avg": 61887.98635863586,
-				"max": 150000,
-				"min": 16309,
-				"title": "上大路",
-				"content": "",
-				"_type": "cluster"
-			}
+			//			focus: {
+			//				"total": 4545,
+			//				"lng": 121.41934682844794,
+			//				"lat": 31.257015882347666,
+			//				"avg": 61887.98635863586,
+			//				"max": 150000,
+			//				"min": 16309,
+			//				//"title": "上大路",
+			//				"title": "宝山区",
+			//				"content": "",
+			//				"_type": "cluster"
+			//			}
 		});
 		//changing the upper level clear the lower level
 		//smaller index means upper level

@@ -15,11 +15,19 @@ export default class extends React.Component {
 		super(props);
 		this.state= {
 				data:null,
+				title:'',
 			};
 		this.req = {
 			'street':null,
 			'district':getDistrictAnalysis,
 		}
+	}
+	call(req,title){
+		req(title).then(
+			(data)=>{
+				this.setState({data,title});
+			}
+		);
 	}
 	render(){
 		const {
@@ -31,12 +39,10 @@ export default class extends React.Component {
 		let {
 			data,
 		}  = this.state;
-		req(title).then(
-			(data)=>{
-				this.setState({data,});
-			}
-		);
-		if(!data)return <Loading/>;
+		if(!data || this.state.title !== title ){
+			this.call(req,title)
+			return <Loading/>;
+		}
 		if(data.err)return <Err {...data}/>
 		data = data.map( o=>({
 			name:`[${fix2(o.min)},${fix2(o.max)}]`,
