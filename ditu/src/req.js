@@ -51,6 +51,15 @@ const getDistrictAnalysis = async (district)=>{
 		));
 		return res;
 }
+const getStreetDetail= async (street)=>{
+	const res = await wrapper(axios.get(
+		`${base_url}/house/analysis`,
+		{
+			params:{ street, }
+		}
+		));
+		return res;
+}
 const getSearch = (obj)=>{
 	const clear = {};
 	Object.entries(obj).map((entry)=>{
@@ -72,4 +81,5 @@ export {
 	getSearch,
 	notReq,
 	getDistrictAnalysis,
+	getStreetDetail,
 }
