@@ -19,7 +19,7 @@ class App extends Component {
 		super(props);
 		this.state = ({
 			markers:[],
-			focus:{_type:'search'},
+			focus:null,
 		});
 		//changing the upper level clear the lower level
 		//smaller index means upper level
@@ -74,19 +74,6 @@ class App extends Component {
 			alert('Failed to fectch Points');
 			log(err);
 			return [];
-		}
-	}
-	componentDidMount(){
-		const focus = this.state.focus;
-		if(focus._type==='search'){
-			const query = {};
-			searchLevel.forEach( (o)=>{
-				query[o] = focus[o];
-			});
-			const promise = getSearch(query);
-			this.setState({
-				promise,
-			});
 		}
 	}
 	render() {
