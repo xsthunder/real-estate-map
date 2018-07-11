@@ -16,8 +16,9 @@ class SideBar extends Component{
 			house:this.renderHouse,
 			search:this.renderSearch,
 		}
-		this.state = {
-			data:null // data to be loaded from props.promise
+		this.state = {// move to sub component
+			data:null ,// data to be loaded from props.promise
+			promise:null,// TODO cancel request to compontWillUnmount
 		}
 	}
 	componentDidMount(){
@@ -28,7 +29,7 @@ class SideBar extends Component{
 	}
 	renderSearch = ()=>{
 		//TODO add keyword support as props from app
-		return <Search focus={this.props.focus} data={this.state.data} handleChange={this.props.handleChange}/>
+		return <Search focus={this.props.focus} />
 	}
 	renderPrediction = (focus)=>{
 		// TODO add async support

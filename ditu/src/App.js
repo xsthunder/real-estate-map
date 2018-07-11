@@ -20,7 +20,6 @@ class App extends Component {
 		this.state = ({
 			markers:[],
 			focus:{_type:'search'},
-			promise:null,// TODO cancel request to compontWillUnmount
 		});
 		//changing the upper level clear the lower level
 		//smaller index means upper level
@@ -37,32 +36,6 @@ class App extends Component {
 				this.handleFocus(focus);
 			}
 		)
-	}
-	handleSearchChange = (key,e)=>{
-		if(!key||!e){
-			warn('invalid call');
-			return;
-		}
-		log(e);
-		const val = e.target.value;
-		this.setState(
-			(prevState, props)=>{
-				// TODO clear lower level
-				const query = {};
-				const focus = prevState.focus;
-				searchLevel.forEach( (o)=>{
-					query[o] = focus[o];
-				});
-				const promise = getSearch(query);
-				const nxtFocus = Object.assign({}, focus, {
-					[key]:val
-				});
-				return {
-					focus:nxtFocus,
-					promise,
-				}
-			}
-		);
 	}
 	handleFocus = (focus)=>{
 		log(focus);
@@ -136,18 +109,12 @@ class App extends Component {
 				}
 			}
 		);
-		const props = {}
-		const focus = this.state.focus;
-		if(focus._type==='search'){
-			props.handleChange = this.handleSearchChange;
-			props.promise=this.state.promise;
-		}
 		return (
 				<Map center="上海市" zoom="12" enableScrollWheelZoom={true} style={{
 					heigth:"100%"
 				}} events={this.events}>
 				{markers}
-				<SideBar focus={this.state.focus} {...props} />
+				<SideBar focus={this.state.focus} />
 				<img 
 					onClick={()=>{
 						const nxtFocus = { _type:'search' }

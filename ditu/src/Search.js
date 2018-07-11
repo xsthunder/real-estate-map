@@ -5,49 +5,83 @@ import Select from './Select';
 import HouseInfo from './HouseInfo';
 import Err from './Err';
 import {
-	log,
+	log,warn, searchLevel
 }from './util';
-function Search (props){
-	const {
-		data ,
-		handleChange ,
-		focus
-	} = props;
-
-	if(!data){
-		return (<Loading/>)
+import {
+	getSearch,
+}from './req';
+class Search extends React.Component{
+	constructor(props){
+		super(props);
+		const state = {};
+		searchLevel.forEach( (o)=>state[o] = '');
+		state['data'] = null;
+		this.state = state;
 	}
-	if(data.err){
-		return (<Err {...data}/>);
+	componentDidMount(){
 	}
-	const choices = data.choices;
-	return (
-		<form style={{height:'300px',overflowY:'auto'}}>
+	handleChange = (key,e)=>{
+		// TODO add cancel
+		// FIXME assume promise finished in sequence
+		// FIXME depend on previous state, use updater instead
+		const query = {};
+		const state = this.state;
+		searchLevel.forEach( (o)=>{
+			if(state[o])query[o] = state[o]
+		});
+		log(e,query);
+		if(key){
+			const val = e.target.value;
+			query[key] = val;
+		}
+		//TODO clear lower level;
+		getSearch(query).then(
+			(data)=>this.setState({...query,data})
+		);
+	}
+	render(){
+		const {
+			data,
+		} = this.state;
+		const query = this.state
+		const handleChange = this.handleChange;
+		if(!data){
+			this.handleChange();
+			return (<Loading/>)
+		}
+		if(data.err){
+			return (<Err {...data}/>);
+		}
+		const choices = data.choices;
+		log(data)
+		return (
+			<form style={{height:'300px',overflowY:'auto'}}>
 			<ul>
-			{Object.entries(data).map( (entry)=>{
+				{Object.entries(data).map( (entry)=>{
 					const k = entry[0];
 					const label = k;
-					const arr = entry[1];
+					let arr = entry[1];
 					if(!Array.isArray(arr))return null;
 					if(k === "choices")return null
-					//TODO pass handle as props from APP
+					arr = arr.concat(['']);
 					//avoid use of key
 					const children = (<Select 
-							value={focus[k]}
-							{...{label, k, arr}} 
-							handleChange={handleChange}
-					/>);
+						value={query[k]}
+						{...{label, k, arr}} 
+						handleChange={handleChange}
+						/>);
 					return (
-					<li>
-						{children}
-					</li>
-				);
-			})}
+						<li>
+							{children}
+						</li>
+					);
+				})}
 			</ul>
 			{
-				choices.map( (o)=> (<HouseInfo focus={o}/>))
+				choices?choices.map( (o)=> (<HouseInfo focus={o}/>)):null
 			}
-		</form>
-	);
+			</form>
+		);
+	}
 }
 export default Search;
